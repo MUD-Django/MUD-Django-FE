@@ -91,6 +91,7 @@ class Map extends Component {
                 <h6>{this.state.name}</h6>
                 <h6>{this.state.title}</h6>
                 <h6>{this.state.description}</h6>
+                <h6>{this.state.error_msg}</h6>
                 <h6>Players : {this.state.players.map(player => (
                     <>{player}, </>
                     ))}
