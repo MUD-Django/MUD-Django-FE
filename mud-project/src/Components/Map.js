@@ -95,10 +95,16 @@ class Map extends Component {
                     <>{player}, </>
                     ))}
                 </h6>
-                <Fab size="medium" color="secondary" onClick={this.goNorth}>N</Fab>
-                <Fab size="medium" color="secondary" onClick={this.goEast}>E</Fab>
-                <Fab size="medium" color="secondary" onClick={this.goSouth}>S</Fab>
-                <Fab size="medium" color="secondary" onClick={this.goWest}>W</Fab>
+
+                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }} >
+                    <Fab size="medium" color="secondary" onClick={this.goNorth}>N</Fab>
+                    <div>
+                        <Fab size="medium" color="secondary" style={{ marginRight: "20px" }} onClick={this.goWest}>W</Fab>
+                        <Fab size="medium" color="secondary" style={{ marginLeft: "20px" }} onClick={this.goEast}>E</Fab>
+                    </div>
+                    <Fab size="medium" color="secondary" onClick={this.goSouth}>S</Fab>
+                </div>
+
             </div>
         );
     }
