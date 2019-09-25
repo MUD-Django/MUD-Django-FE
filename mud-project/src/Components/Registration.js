@@ -59,6 +59,7 @@ class Registration extends Component {
         .post('https://lambda-mud-test.herokuapp.com/api/registration/', creds)
         .then(res => {
             console.log(res)
+            this.props.history.push('/protected')
             localStorage.setItem('token', res.data.key)
             this.setState({
                 username: '',
