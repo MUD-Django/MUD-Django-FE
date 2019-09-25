@@ -11,6 +11,12 @@ class Map extends Component {
         players: [] 
     }
 
+    // Buttons for N, S, E, and W
+    // if N is clicked, POST to the move endpoint
+
+
+    // Other players in the room
+
     componentDidMount() {
         axiosWithAuth()
         .get('https://lambda-mud-test.herokuapp.com/api/adv/init/')
@@ -28,7 +34,6 @@ class Map extends Component {
         })
     }
     
-
 
     render() {
         return (
