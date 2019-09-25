@@ -48,18 +48,18 @@ class Registration extends Component {
         })
     }
 
-    submitHandler = e =>{
-        e.preventdefault();
+    submitHandler = e => {
+        e.preventDefault();
         const creds = {
             username: this.state.username,
             password1: this.state.password1,
             password2: this.state.password2
         }
         axios
-        .post('http://build-week-mud-project.herokuapp.com/api/registration/', creds)
+        .post('https://lambda-mud-test.herokuapp.com/api/registration/', creds)
         .then(res => {
+            console.log(res)
             localStorage.setItem('token', res.data.key)
-            this.props.history.push('/protected')
             this.setState({
                 username: '',
                 password1: '',
@@ -76,7 +76,6 @@ class Registration extends Component {
     render() {
         const { classes } = this.props
 
-
         return (
             <>
             <Container component="main" maxWidth="xs">
@@ -88,7 +87,7 @@ class Registration extends Component {
                 <Typography component="h1" variant="h5">
                 Registration
                 </Typography>
-                <form className={classes.form} noValidate>
+                <form  onSubmit={this.submitHandler} className={classes.form} noValidate>
                 <TextField
                     variant="filled"
                     margin="normal"

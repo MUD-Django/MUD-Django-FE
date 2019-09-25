@@ -54,15 +54,16 @@ class Login extends Component {
 
 
     submitHandler = e =>{
-        e.preventdefault();
+        e.preventDefault();
         const creds = {
             username: this.state.username,
             email: this.state.email,
             password: this.state.password
         }
         axios
-        .post('http://build-week-mud-project.herokuapp.com/api/login/', creds)
+        .post('https://lambda-mud-test.herokuapp.com/api/login/', creds)
         .then(res => {
+            console.log(res)
             localStorage.setItem('token', res.data.key)
             this.props.history.push('/protected')
             this.setState({
