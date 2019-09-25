@@ -41,7 +41,6 @@ const styles = {
 class Login extends Component {
     state = {
         username: '',
-        email: '',
         password: '',
     }
 
@@ -57,7 +56,6 @@ class Login extends Component {
         e.preventDefault();
         const creds = {
             username: this.state.username,
-            email: this.state.email,
             password: this.state.password
         }
         axios
@@ -68,7 +66,6 @@ class Login extends Component {
             this.props.history.push('/protected')
             this.setState({
                 username: '',
-                email: '',
                 password: '',
             })
         })
@@ -113,19 +110,6 @@ class Login extends Component {
                     margin="normal"
                     required
                     fullWidth
-                    id="email"
-                    label="Email Address"
-                    name="email"
-                    autoComplete="email"
-                    value={this.state.email}
-                    onChange={this.handleChange}
-                    autoFocus
-                />
-                <TextField
-                    variant="filled"
-                    margin="normal"
-                    required
-                    fullWidth
                     name="password"
                     label="Password"
                     type="password"
@@ -146,11 +130,9 @@ class Login extends Component {
                 </Button>
                 <Grid container>
                     <Grid item>
-                    <Link href="#" variant="body2">
                         <Linkto to ="/reg">
-                        {"Don't have an account? Sign Up"}
+                        Don't have an account? Sign Up
                         </Linkto>
-                    </Link>
                     </Grid>
                 </Grid>
                 </form>
