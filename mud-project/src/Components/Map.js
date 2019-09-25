@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
 import { axiosWithAuth } from './axiosWithAuth'
-import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 
 class Map extends Component {
 
@@ -91,9 +91,14 @@ class Map extends Component {
                 <h6>{this.state.name}</h6>
                 <h6>{this.state.title}</h6>
                 <h6>{this.state.description}</h6>
-
-                <Button onClick={this.goNorth}>N</Button>
-
+                <h6>Players : {this.state.players.map(player => (
+                    <>{player}, </>
+                    ))}
+                </h6>
+                <Fab size="medium" color="secondary" onClick={this.goNorth}>N</Fab>
+                <Fab size="medium" color="secondary" onClick={this.goEast}>E</Fab>
+                <Fab size="medium" color="secondary" onClick={this.goSouth}>S</Fab>
+                <Fab size="medium" color="secondary" onClick={this.goWest}>W</Fab>
             </div>
         );
     }
