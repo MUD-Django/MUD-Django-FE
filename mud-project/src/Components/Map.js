@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom'
 
 class Map extends Component {
     render() {
@@ -10,4 +11,4 @@ class Map extends Component {
     }
 }
 
-export default Map;
+export default withRouter(Map);
