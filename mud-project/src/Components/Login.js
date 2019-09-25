@@ -9,6 +9,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/styles';
 import Container from '@material-ui/core/Container';
+import { Link as Linkto } from 'react-router-dom'
 import axios from "axios";
 
 
@@ -144,7 +145,9 @@ class Login extends Component {
                 <Grid container>
                     <Grid item>
                     <Link href="#" variant="body2">
+                        <Linkto to ="/reg">
                         {"Don't have an account? Sign Up"}
+                        </Linkto>
                     </Link>
                     </Grid>
                 </Grid>
