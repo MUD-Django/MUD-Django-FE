@@ -8,7 +8,8 @@ class Map extends Component {
         name : '',
         title: '',
         description: '',
-        players: [] 
+        players: [],
+        direction: '',
     }
 
     componentDidMount() {
