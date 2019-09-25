@@ -59,6 +59,7 @@ class Registration extends Component {
         .post('http://build-week-mud-project.herokuapp.com/api/registration/', creds)
         .then(res => {
             localStorage.setItem('token', res.data.key)
+            this.props.history.push('/protected')
             this.setState({
                 username: '',
                 password1: '',

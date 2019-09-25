@@ -64,6 +64,7 @@ class Login extends Component {
         .post('http://build-week-mud-project.herokuapp.com/api/login/', creds)
         .then(res => {
             localStorage.setItem('token', res.data.key)
+            this.props.history.push('/protected')
             this.setState({
                 username: '',
                 email: '',
