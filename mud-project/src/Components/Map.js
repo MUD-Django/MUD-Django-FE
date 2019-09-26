@@ -14,8 +14,9 @@ class Map extends Component {
             players: [],
             rooms: [],
             error_msg: '',
-
+            grid: [],
         }
+        this.grid = []
     }
 
 
@@ -36,8 +37,9 @@ class Map extends Component {
             .then(res => {
                 console.log('ROOMS RES', res)
                 this.setState({
-                    rooms: res.data.rooms
+                    rooms: res.data
                 })
+                this.generateMap()
             })
             .catch(err => {
                 console.log(`Login Error: ${err}`)
@@ -45,18 +47,23 @@ class Map extends Component {
     }
 
     generateMap() {
-        let grid = [ , ];
+        let grid = [];
         let counter = 0;
 
         for (let x = 0; x < 10; x++) {
-           
+            grid[x] = []
             for (let y = 0; y < 10; y++) {
                 grid[x][y] = this.state.rooms[counter]
                 counter ++ 
             }
         }
-        return grid;
+            this.setState({
+                grid: grid
+            })
+            console.log(this.state.grid)
     }
+
+    
 
     logOut() {
         localStorage.removeItem("token");
@@ -134,17 +141,41 @@ class Map extends Component {
 
     }
 
+    getRooms = () => {
+        let rooms = ''
+
+        for (let i = 0; i < this.state.grid.length; i++) {
+            for (let j = 0; j < this.state.grid[i].length; j++) {
+                rooms = rooms + ` ${this.state.grid[i][j].title} ` 
+            }
+        }
+        return rooms
+
+        // this.state.grid.map( row => {
+        //     row.map( room => (
+        //         <span key={room.id}> `${room.title}` </span>
+        //     ))
+        // })
+
+    }
+
     render() {
-        if (this.state.rooms)
-        console.log(this.generateMap())
+        // if (this.state.rooms && this.grid.length == 0)
+        // this.generateMap()
 
         return (
             <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }} >
                 
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                    <h6>
-                        Map Here
-                    </h6>
+                    <div>
+                        {/* { this.state.grid.length > 0 ? this.getRooms() : 'Still Populating' } */}
+
+                        { this.state.grid.length > 0 ? this.getRooms() : 'Still Populating' }
+
+                        {/* { this.state.grid.length > 0 ? this.state.grid.map( row => {
+                            this.getRooms(row)       
+                        }): "Still Populating"} */}
+                    </div>
                 </div>
 
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", marginLeft: "300px", marginTop: "80px", marginRight: "40px", }}>
