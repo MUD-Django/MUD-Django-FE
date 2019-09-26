@@ -59,7 +59,7 @@ class Login extends Component {
             password: this.state.password
         }
         axios
-        .post('https://lambda-mud-test.herokuapp.com/api/login/', creds)
+        .post('https://build-week-mud-project.herokuapp.com/api/login/', creds)
         .then(res => {
             console.log(res)
             localStorage.setItem('token', res.data.key)

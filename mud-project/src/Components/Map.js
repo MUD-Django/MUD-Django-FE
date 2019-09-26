@@ -5,20 +5,24 @@ import Fab from '@material-ui/core/Fab';
 
 
 class Map extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: '',
+            title: '',
+            description: '',
+            players: [],
+            rooms: [],
+            error_msg: '',
 
-    state = {
-        name: '',
-        title: '',
-        description: '',
-        players: [],
-        rooms: [],
-        error_msg: '',
+        }
     }
+
 
 
     componentDidMount() {
 
-        axiosWithAuth().get('https://lambda-mud-test.herokuapp.com/api/adv/init/')
+        axiosWithAuth().get('https://build-week-mud-project.herokuapp.com/api/adv/init/')
             .then(res => {
                 console.log('INIT RES', res)
                 this.setState({
@@ -27,7 +31,7 @@ class Map extends Component {
                     description: res.data.description,
                     players: res.data.players
                 })
-                return axiosWithAuth().get('https://lambda-mud-test.herokuapp.com/api/adv/rooms/')
+                return axiosWithAuth().get('https://build-week-mud-project.herokuapp.com/api/adv/rooms/')
             })
             .then(res => {
                 console.log('ROOMS RES', res)
@@ -41,10 +45,22 @@ class Map extends Component {
     }
 
     generateMap() {
-        // Get all rooms
-        // For each room in rooms...
-            // Draw the room
-            // Draw each exit
+        let grid = [ , ];
+        let counter = 0;
+
+        for (let x = 0; x < 10; x++) {
+           
+            for (let y = 0; y < 10; y++) {
+                grid[x][y] = this.state.rooms[counter]
+                counter ++ 
+            }
+        }
+        return grid;
+    }
+
+    logOut() {
+        localStorage.removeItem("token");
+        this.props.history.push('/api/login/');
     }
 
     // componentDidMount() {
@@ -66,7 +82,7 @@ class Map extends Component {
 
     goDirection = direction => {
         axiosWithAuth()
-            .post('https://lambda-mud-test.herokuapp.com/api/adv/move/', direction)
+            .post('https://build-week-mud-project.herokuapp.com/api/adv/move/', direction)
             .then(res => {
                 console.log(res)
                 this.setState({
@@ -119,31 +135,39 @@ class Map extends Component {
     }
 
     render() {
-        return (
-            <div>
-                Mapppppppp
-                <h6>{this.state.name}</h6>
-                <h6>{this.state.title}</h6>
-                <h6>{this.state.description}</h6>
-                <h6>Players : {this.state.players.map(player => (
-                    <>{player}, </>
-                ))}
-                </h6>
+        if (this.state.rooms)
+        console.log(this.generateMap())
 
-                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }} >
-                    <Fab size="medium" color="secondary" onClick={this.goNorth}>N</Fab>
-                    <div>
-                        <Fab size="medium" color="secondary" style={{ marginRight: "20px" }} onClick={this.goWest}>W</Fab>
-                        <Fab size="medium" color="secondary" style={{ marginLeft: "20px" }} onClick={this.goEast}>E</Fab>
-                    </div>
-                    <Fab size="medium" color="secondary" onClick={this.goSouth}>S</Fab>
+        return (
+            <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }} >
+                
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                    <h6>
+                        Map Here
+                    </h6>
                 </div>
 
-                <h6>
-                    {/* Rooms: {this.state.rooms.map(room => (
-                        <> {room.title}, </>
-                    ))} */}
-                </h6>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", marginLeft: "300px", marginTop: "80px", marginRight: "40px", }}>
+                    <button onClick={this.logOut}> Log Out </button>
+                    <h6> My Player: {this.state.name}</h6>
+                    <h6> Room: {this.state.title}</h6>
+                    <h6> Description: {this.state.description}</h6>
+                    <h6> Players in the Room: {this.state.players.map(player => (
+                        <>{player}, </>
+                    ))}
+                    </h6>
+                    <h6> {this.state.error_msg} </h6>
+
+                    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginTop: "100px" }} >
+                        <Fab size="medium" color="secondary" onClick={this.goNorth}>N</Fab>
+                        <div>
+                            <Fab size="medium" color="secondary" style={{ marginRight: "20px" }} onClick={this.goWest}>W</Fab>
+                            <Fab size="medium" color="secondary" style={{ marginLeft: "20px" }} onClick={this.goEast}>E</Fab>
+                        </div>
+                        <Fab size="medium" color="secondary" onClick={this.goSouth}>S</Fab>
+                    </div>
+                </div>
+                
 
             </div>
         );

@@ -56,7 +56,7 @@ class Registration extends Component {
             password2: this.state.password2
         }
         axios
-        .post('https://lambda-mud-test.herokuapp.com/api/registration/', creds)
+        .post('https://build-week-mud-project.herokuapp.com/api/registration/', creds)
         .then(res => {
             console.log(res)
             this.props.history.push('/protected')
