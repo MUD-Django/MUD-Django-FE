@@ -3,58 +3,92 @@ import { withRouter } from 'react-router-dom'
 import { axiosWithAuth } from './axiosWithAuth'
 import Fab from '@material-ui/core/Fab';
 
+
 class Map extends Component {
 
     state = {
-        name : '',
+        name: '',
         title: '',
         description: '',
         players: [],
+        rooms: [],
         error_msg: '',
     }
 
+
     componentDidMount() {
-        axiosWithAuth()
-        .get('https://lambda-mud-test.herokuapp.com/api/adv/init/')
-        .then(res => {
-            console.log(res)
-            this.setState({
-                name: res.data.name,
-                title: res.data.title,
-                description: res.data.description,
-                players: res.data.players
+
+        axiosWithAuth().get('https://lambda-mud-test.herokuapp.com/api/adv/init/')
+            .then(res => {
+                console.log('INIT RES', res)
+                this.setState({
+                    name: res.data.name,
+                    title: res.data.title,
+                    description: res.data.description,
+                    players: res.data.players
+                })
+                return axiosWithAuth().get('https://lambda-mud-test.herokuapp.com/api/adv/rooms/')
             })
-        })
-        .catch(err => {
-            console.log(`Login Error: ${err}`)
-        })
+            .then(res => {
+                console.log('ROOMS RES', res)
+                this.setState({
+                    rooms: res.data.rooms
+                })
+            })
+            .catch(err => {
+                console.log(`Login Error: ${err}`)
+            })
     }
+
+    generateMap() {
+        // Get all rooms
+        // For each room in rooms...
+            // Draw the room
+            // Draw each exit
+    }
+
+    // componentDidMount() {
+    //     axiosWithAuth()
+    //     .get('https://lambda-mud-test.herokuapp.com/api/adv/init/')
+    //     .then(res => {
+    //         console.log(res)
+    //         this.setState({
+    //             name: res.data.name,
+    //             title: res.data.title,
+    //             description: res.data.description,
+    //             players: res.data.players
+    //         })
+    //     })
+    //     .catch(err => {
+    //         console.log(`Login Error: ${err}`)
+    //     })
+    // }
 
     goDirection = direction => {
         axiosWithAuth()
-        .post('https://lambda-mud-test.herokuapp.com/api/adv/move/', direction)
-        .then(res => {
-            console.log(res)
-            this.setState({
-                name: res.data.name,
-                title: res.data.title,
-                description: res.data.description,
-                players: res.data.players,
-                error_msg: res.data.error_msg
+            .post('https://lambda-mud-test.herokuapp.com/api/adv/move/', direction)
+            .then(res => {
+                console.log(res)
+                this.setState({
+                    name: res.data.name,
+                    title: res.data.title,
+                    description: res.data.description,
+                    players: res.data.players,
+                    error_msg: res.data.error_msg
+                })
             })
-        })
-        .catch(err => {
-            console.log(`Login Error: ${err}`)
-        })
+            .catch(err => {
+                console.log(`Login Error: ${err}`)
+            })
     }
-    
+
     goNorth = e => {
         e.preventDefault()
         const north = {
             'direction': 'n'
         }
         this.goDirection(north)
-        
+
     }
 
     goSouth = e => {
@@ -63,7 +97,7 @@ class Map extends Component {
             'direction': 's'
         }
         this.goDirection(south)
-        
+
     }
 
     goWest = e => {
@@ -72,7 +106,7 @@ class Map extends Component {
             'direction': 'w'
         }
         this.goDirection(west)
-        
+
     }
 
     goEast = e => {
@@ -81,7 +115,7 @@ class Map extends Component {
             'direction': 'e'
         }
         this.goDirection(east)
-        
+
     }
 
     render() {
@@ -93,7 +127,7 @@ class Map extends Component {
                 <h6>{this.state.description}</h6>
                 <h6>Players : {this.state.players.map(player => (
                     <>{player}, </>
-                    ))}
+                ))}
                 </h6>
 
                 <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }} >
@@ -104,6 +138,12 @@ class Map extends Component {
                     </div>
                     <Fab size="medium" color="secondary" onClick={this.goSouth}>S</Fab>
                 </div>
+
+                <h6>
+                    {/* Rooms: {this.state.rooms.map(room => (
+                        <> {room.title}, </>
+                    ))} */}
+                </h6>
 
             </div>
         );
