@@ -56,20 +56,20 @@ class Map extends Component {
             grid[x] = []
             for (let y = 0; y < 10; y++) {
                 grid[x][y] = null
-                counter ++ 
+                counter++
             }
         }
         counter = 0;
         for (let x = 0; x < 10; x++) {
             for (let y = 0; y < 10; y++) {
                 grid[this.state.rooms[counter].y][this.state.rooms[counter].x] = this.state.rooms[counter]
-                counter ++ 
+                counter++
             }
         }
-            this.setState({
-                grid: grid
-            })
-            console.log(this.state.grid)
+        this.setState({
+            grid: grid
+        })
+        console.log(this.state.grid)
     }
 
     logOut() {
@@ -164,33 +164,25 @@ class Map extends Component {
         // this.generateMap()
 
         return (
-            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }} >
-                
+            <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }} >
+
                 <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap-reverse" }}>
-                    <div style={{width: "620px", height: "620px", display: "flex", justifyContent: "center", flexWrap: "wrap-reverse" }}>
-                        {this.state.grid.length > 0 
-                        ? 
+                    <div style={{ width: "620px", height: "620px", display: "flex", justifyContent: "center", flexWrap: "wrap-reverse" }}>
+                        {this.state.grid.length > 0
+                            ?
                             this.state.grid.map(row => {
-                                return row.map( room => {
-                                    return <Room room = {room} id={this.state.id} />  // pass active id 
-                                    })
+                                return row.map(room => {
+                                    return <Room room={room} id={this.state.id} />  // pass active id 
+                                })
                             })
-                        :
+                            :
                             <p>Still Loading</p>
                         }
                     </div>
                 </div>
 
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", marginLeft: "300px", marginTop: "80px", marginRight: "40px", }}>
-                    <button onClick={this.logOut}> Log Out </button>
-                    <h6> My Player: {this.state.name}</h6>
-                    <h6> Room: {this.state.title}</h6>
-                    <h6> Description: {this.state.description}</h6>
-                    <h6> Players in the Room: {this.state.players.map(player => (
-                        <>{player}, </>
-                    ))}
-                    </h6>
-                    <h6> {this.state.error_msg} </h6>
+                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "flex-start", marginLeft: "40px", }}>
+                    <button style={{ marginTop: "80px", width: "200px", height: "50px" }} onClick={this.logOut}> Log Out </button>
 
                     <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginTop: "100px" }} >
                         <Fab size="medium" color="secondary" onClick={this.goNorth}>N</Fab>
@@ -200,8 +192,20 @@ class Map extends Component {
                         </div>
                         <Fab size="medium" color="secondary" onClick={this.goSouth}>S</Fab>
                     </div>
+
+                    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center",  alignItems: "flex-start", marginTop: "80px", maxWidth: "240px" }}>
+                        <h6> My Player: {this.state.name}</h6>
+                        <h6> Room: {this.state.title}</h6>
+                        <h6> Description: {this.state.description}</h6>
+                        <h6> Players in the Room: {this.state.players.map(player => (
+                            <>{player}, </>
+                        ))}
+                        </h6>
+                        <h6> {this.state.error_msg} </h6>
+                    </div>
+
                 </div>
-                
+
 
             </div>
         );
