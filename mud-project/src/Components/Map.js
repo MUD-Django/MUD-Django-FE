@@ -142,22 +142,8 @@ class Map extends Component {
     }
 
     getRooms = () => {
-        let rooms = ''
 
-        for (let i = 0; i < this.state.grid.length; i++) {
-            for (let j = 0; j < this.state.grid[i].length; j++) {
-                rooms = rooms + ` ${this.state.grid[i][j].title} ` 
-            }
-        }
-        return rooms
-
-        // this.state.grid.map( row => {
-        //     row.map( room => (
-        //         <span key={room.id}> `${room.title}` </span>
-        //     ))
-        // })
-
-    }
+    })
 
     render() {
         // if (this.state.rooms && this.grid.length == 0)
