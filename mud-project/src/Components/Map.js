@@ -182,7 +182,7 @@ class Map extends Component {
                 </div>
 
                 <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "flex-start", marginLeft: "40px", }}>
-                    <button style={{ marginTop: "100px", width: "200px", height: "50px" }} onClick={this.logOut}> Log Out </button>
+                    <button style={{ marginTop: "80px", width: "200px", height: "50px" }} onClick={this.logOut}> Log Out </button>
 
                     <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginTop: "100px" }} >
                         <Fab size="medium" color="secondary" onClick={this.goNorth}>N</Fab>
@@ -193,11 +193,11 @@ class Map extends Component {
                         <Fab size="medium" color="secondary" onClick={this.goSouth}>S</Fab>
                     </div>
 
-                    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center",  alignItems: "flex-start", marginTop: "80px" }}>
+                    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center",  alignItems: "flex-start", marginTop: "80px", maxWidth: "240px" }}>
                         <h6> My Player: {this.state.name}</h6>
                         <h6> Room: {this.state.title}</h6>
                         <h6> Description: {this.state.description}</h6>
-                        <h6 style={{ maxWidth: "200px" }}> Players in the Room: {this.state.players.map(player => (
+                        <h6> Players in the Room: {this.state.players.map(player => (
                             <>{player}, </>
                         ))}
                         </h6>
