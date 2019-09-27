@@ -20,14 +20,14 @@ class Room extends Component {
     }
 
     render() {
-        let borderRight = this.state.room.e_to === 0? "5px solid cyan" : "5px solid red"
-        let borderLeft = this.state.room.w_to === 0? "5px solid cyan" : "5px solid red"
-        let borderTop = this.state.room.n_to === 0? "5px solid cyan" : "5px solid red"
-        let borderBottom = this.state.room.s_to === 0? "5px solid cyan" : "5px solid red"
+        let borderRight = this.state.room.e_to === 0? "5px solid lightgrey" : "5px solid red"
+        let borderLeft = this.state.room.w_to === 0? "5px solid lightgrey" : "5px solid red"
+        let borderTop = this.state.room.n_to === 0? "5px solid lightgrey" : "5px solid red"
+        let borderBottom = this.state.room.s_to === 0? "5px solid lightgrey" : "5px solid red"
 
         // check active room id to current room id, if matching set active to true
         // change color in render 
-        let background = this.props.id === this.state.room.id ? "yellow" : "cyan"
+        let background = this.props.id === this.state.room.id ? "yellow" : "lightgrey"
        return <div style={{
             borderRight: borderRight,
             borderLeft: borderLeft,
