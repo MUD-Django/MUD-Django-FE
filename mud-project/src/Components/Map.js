@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
 import { axiosWithAuth } from './axiosWithAuth'
 import Fab from '@material-ui/core/Fab';
-
+import Room from './Room.js';
 
 class Map extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: '',
             name: '',
             title: '',
             description: '',
@@ -27,10 +28,11 @@ class Map extends Component {
             .then(res => {
                 console.log('INIT RES', res)
                 this.setState({
+                    id: res.data.id,
                     name: res.data.name,
                     title: res.data.title,
                     description: res.data.description,
-                    players: res.data.players
+                    players: res.data.players,
                 })
                 return axiosWithAuth().get('https://build-week-mud-project.herokuapp.com/api/adv/rooms/')
             })
@@ -53,7 +55,14 @@ class Map extends Component {
         for (let x = 0; x < 10; x++) {
             grid[x] = []
             for (let y = 0; y < 10; y++) {
-                grid[x][y] = this.state.rooms[counter]
+                grid[x][y] = null
+                counter ++ 
+            }
+        }
+        counter = 0;
+        for (let x = 0; x < 10; x++) {
+            for (let y = 0; y < 10; y++) {
+                grid[this.state.rooms[counter].y][this.state.rooms[counter].x] = this.state.rooms[counter]
                 counter ++ 
             }
         }
@@ -63,11 +72,10 @@ class Map extends Component {
             console.log(this.state.grid)
     }
 
-    
-
     logOut() {
         localStorage.removeItem("token");
-        this.props.history.push('/api/login/');
+        window.location.reload(false);
+        // this.props.history.push('/');
     }
 
     // componentDidMount() {
@@ -93,6 +101,7 @@ class Map extends Component {
             .then(res => {
                 console.log(res)
                 this.setState({
+                    id: res.data.id,
                     name: res.data.name,
                     title: res.data.title,
                     description: res.data.description,
@@ -142,25 +151,33 @@ class Map extends Component {
     }
 
     getRooms = () => {
-
-    })
+        // this.state.grid.map(row => {
+        //     return row.map( room => {
+        //         console.log(room)
+        //         return <Room room = {room} />
+        //         })
+        // })
+    }
 
     render() {
         // if (this.state.rooms && this.grid.length == 0)
         // this.generateMap()
 
         return (
-            <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }} >
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }} >
                 
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                    <div>
-                        {/* { this.state.grid.length > 0 ? this.getRooms() : 'Still Populating' } */}
-
-                        { this.state.grid.length > 0 ? this.getRooms() : 'Still Populating' }
-
-                        {/* { this.state.grid.length > 0 ? this.state.grid.map( row => {
-                            this.getRooms(row)       
-                        }): "Still Populating"} */}
+                <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap-reverse" }}>
+                    <div style={{width: "620px", height: "620px", display: "flex", justifyContent: "center", flexWrap: "wrap-reverse" }}>
+                        {this.state.grid.length > 0 
+                        ? 
+                            this.state.grid.map(row => {
+                                return row.map( room => {
+                                    return <Room room = {room} id={this.state.id} />  // pass active id 
+                                    })
+                            })
+                        :
+                            <p>Still Loading</p>
+                        }
                     </div>
                 </div>
 
