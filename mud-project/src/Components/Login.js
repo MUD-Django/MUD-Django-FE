@@ -9,8 +9,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/styles';
 import Container from '@material-ui/core/Container';
-import { Link as Linkto } from 'react-router-dom'
+import { Link as Linkto } from 'react-router-dom';
 import axios from "axios";
+import { withRouter } from 'react-router-dom';
 
 
 const styles = {
@@ -59,7 +60,7 @@ class Login extends Component {
             password: this.state.password
         }
         axios
-        .post('https://lambda-mud-test.herokuapp.com/api/login/', creds)
+        .post('https://build-week-mud-project.herokuapp.com/api/login/', creds)
         .then(res => {
             console.log(res)
             localStorage.setItem('token', res.data.key)
@@ -143,4 +144,4 @@ class Login extends Component {
     }
 }
 
-export default withStyles(styles)(Login);
+export default withRouter(withStyles(styles)(Login));
